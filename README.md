@@ -1,6 +1,6 @@
 # LaundryKu OOP
 
-Rafael Ramdani — 51423176 — 4IA24
+Project RPL Karya Anak Bangsa
 
 Project Java console untuk tahap awal OOP bisnis laundry kiloan. Model bisnis LaundryKu mencakup pelanggan, layanan, transaksi, status cucian, pembayaran tunai, invoice, dan rekap pendapatan. Arah pengembangan selanjutnya adalah aplikasi desktop Java di NetBeans dengan MySQL, Hibernate, dan JasperReports untuk laporan PDF. Integrasi tersebut belum diterapkan pada tahap OOP ini.
 
