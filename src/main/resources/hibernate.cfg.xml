@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!--
+    Konfigurasi utama Hibernate.
+    URL, username, dan password dapat ditimpa melalui file db.properties
+    di folder project (lihat db.properties.example) agar password tidak ikut ke Git.
+-->
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/laundryku?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.pool_size">5</property>
+
+        <!-- update: tabel dibuat/ditambah kolom otomatis tanpa menghapus data -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <mapping class="laundryku.model.Pengguna"/>
+        <mapping class="laundryku.model.Admin"/>
+        <mapping class="laundryku.model.Pelanggan"/>
+        <mapping class="laundryku.model.LayananLaundry"/>
+        <mapping class="laundryku.model.Pembayaran"/>
+        <mapping class="laundryku.model.TransaksiLaundry"/>
+    </session-factory>
+</hibernate-configuration>

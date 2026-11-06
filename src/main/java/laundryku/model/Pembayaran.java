@@ -1,13 +1,32 @@
 package laundryku.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
+@Table(name = "pembayaran")
 public class Pembayaran {
-    private final LocalDate tanggal;
-    private final BigDecimal tagihan;
-    private final BigDecimal uangDiterima;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private LocalDate tanggal;
+
+    @Column(nullable = false, precision = 12, scale = 0)
+    private BigDecimal tagihan;
+
+    @Column(name = "uang_diterima", nullable = false, precision = 12, scale = 0)
+    private BigDecimal uangDiterima;
+
+    protected Pembayaran() { }
 
     public Pembayaran(LocalDate tanggal, BigDecimal tagihan, BigDecimal uangDiterima) {
         this.tanggal = Objects.requireNonNull(tanggal, "Tanggal wajib diisi.");
@@ -22,6 +41,7 @@ public class Pembayaran {
         this.uangDiterima = uangDiterima;
     }
 
+    public Long getId() { return id; }
     public LocalDate getTanggal() { return tanggal; }
     public BigDecimal getTagihan() { return tagihan; }
     public BigDecimal getUangDiterima() { return uangDiterima; }

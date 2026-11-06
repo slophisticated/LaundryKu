@@ -1,27 +1,24 @@
 @echo off
-setlocal EnableDelayedExpansion
+setlocal
 pushd "%~dp0"
-set "taskJdk=%JAVA_HOME%"
-if not defined taskJdk (
-    for /f "tokens=2 delims==" %%j in ('java -XshowSettings:properties -version 2^>^&1 ^| findstr /c:"java.home ="') do set "taskJdk=%%j"
-    for /f "tokens=*" %%j in ("!taskJdk!") do set "taskJdk=%%j"
+rem Build memakai Maven karena project membutuhkan library Hibernate, MySQL, dan FlatLaf.
+set "taskMvn=mvn"
+where mvn >nul 2>&1
+if errorlevel 1 (
+    if exist "C:\Program Files\apache-maven-3.10.0\bin\mvn.cmd" (
+        set "taskMvn=C:\Program Files\apache-maven-3.10.0\bin\mvn.cmd"
+    ) else if exist "C:\Program Files\NetBeans-17\netbeans\java\maven\bin\mvn.cmd" (
+        set "taskMvn=C:\Program Files\NetBeans-17\netbeans\java\maven\bin\mvn.cmd"
+    ) else (
+        goto gagal
+    )
 )
-if not exist "!taskJdk!\bin\javac.exe" goto gagal
-if not exist target\classes mkdir target\classes
-if not exist dist mkdir dist
-if exist target\sources.txt del target\sources.txt
-for /r src\main\java %%f in (*.java) do (
-    set "taskSource=%%f"
-    echo "!taskSource:\=/!">>target\sources.txt
-)
-"!taskJdk!\bin\javac.exe" --release 17 -encoding UTF-8 -d target\classes @target\sources.txt
+call "%taskMvn%" -q -B package
 if errorlevel 1 goto gagal
-"!taskJdk!\bin\jar.exe" --create --file dist\LaundryKuOOP.jar --main-class laundryku.Main -C target\classes .
-if errorlevel 1 goto gagal
-echo Build berhasil. Jalankan run.bat atau buka project di NetBeans.
+echo Build berhasil: dist\LaundryKuOOP.jar
 popd
 exit /b 0
 :gagal
-echo Build gagal. Pastikan JDK 17 atau lebih baru tersedia pada PATH.
+echo Build gagal. Pastikan JDK 17+ dan Maven tersedia (atau buka project di NetBeans).
 popd
 exit /b 1

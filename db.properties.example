@@ -1,0 +1,7 @@
+# Salin file ini menjadi db.properties lalu sesuaikan dengan MySQL di komputer kamu.
+# db.properties tidak ikut di-commit ke Git karena berisi password.
+db.url=jdbc:mysql://localhost:3306/laundryku?createDatabaseIfNotExist=true
+db.username=root
+db.password=
+# true untuk menampilkan SQL yang dibuat Hibernate di console
+db.show_sql=false
